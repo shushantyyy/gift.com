@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Gift for You</title>
+  <style>
+    body {
+      margin: 0;
+      background-color: #111;
+      color: #fff;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .btn {
+      padding: 20px 40px;
+      margin: 20px;
+      font-size: 1.5em;
+      background-color: #222;
+      border: 2px solid #555;
+      border-radius: 12px;
+      color: white;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    .btn:hover {
+      background-color: #444;
+      transform: scale(1.05);
+    }
+
+    .spinner {
+      border: 6px solid #333;
+      border-top: 6px solid #0f0;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      animation: spin 1s linear infinite;
+      margin: 20px auto;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    #meme img {
+      max-width: 80%;
+      border-radius: 16px;
+      margin-top: 20px;
+      border: 3px solid white;
+    }
+
+    #final img {
+      max-width: 80%;
+      margin-top: 20px;
+      border-radius: 16px;
+      border: 3px solid white;
+    }
+
+    .confetti {
+      position: fixed;
+      width: 10px;
+      height: 10px;
+      background: #ff0;
+      top: -10px;
+      animation: fall 3s linear infinite;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(110vh) rotate(360deg);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="step1">
+    <button class="btn" onclick="nextStep('step1','step2')">Click here</button>
+  </div>
+
+  <div id="step2" class="hidden">
+    <button class="btn" onclick="nextStep('step2','step3')">Click here again</button>
+  </div>
+
+  <div id="step3" class="hidden">
+    <button class="btn" onclick="nextStep('step3','step4')">Gift for you... Click here</button>
+  </div>
+
+  <div id="step4" class="hidden">
+    <div class="spinner"></div>
+    <h2>Sabar ka fal mitha hota hai...</h2>
+  </div>
+
+  <div id="meme" class="hidden">
+    <h2>Sabar ka fal mitha hota hai 🤲</h2>
+    <img src="https://i.pinimg.com/originals/f9/f4/76/f9f476ba4b25db5613a6f04e256e6342.jpg" alt="Sabar Meme">
+    <br>
+    <button class="btn" onclick="nextStep('meme','final')">Here is your gift! Click here</button>
+  </div>
+
+  <div id="final" class="hidden">
+    <h1>YOU GOT FOOLED BY SHUSHANT 😎</h1>
+    <img src="https://media.tenor.com/LnZxhZj09vUAAAAM/you-fool-anime.gif" alt="You Fool Meme">
+  </div>
+
+  <script>
+    function nextStep(current, next) {
+      document.getElementById(current).classList.add("hidden");
+      document.getElementById(next).classList.remove("hidden");
+
+      if (next === "step4") {
+        setTimeout(() => {
+          nextStep('step4', 'meme');
+        }, 4000); // wait 4 seconds before showing meme
+      }
+
+      if (next === "final") {
+        for (let i = 0; i < 100; i++) {
+          let confetti = document.createElement("div");
+          confetti.className = "confetti";
+          confetti.style.left = Math.random() * 100 + "vw";
+          confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+          confetti.style.animationDuration = (Math.random() * 2 + 3) + "s";
+          document.body.appendChild(confetti);
+        }
+      }
+    }
+  </script>
+
+</body>
+</html>
